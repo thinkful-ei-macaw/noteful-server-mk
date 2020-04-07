@@ -20,16 +20,20 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-app.use('/folders', foldersRouter);
-app.use('/notes', notesRouter);
+// endpoint setup
+const endpoints = {
+  '/folders': foldersRouter,
+  '/notes': notesRouter
+};
+
+Object.keys(endpoints).forEach(route => {
+  app.use(route, endpoints[route]);
+});
 
 // request handling
 app.get('/', (req, res) => {
   res.status(200).json({
-    endpoints: [
-      '/notes',
-      'folders'
-    ]
+    endpoints: Object.keys(endpoints)
   });
 });
 
