@@ -25,7 +25,12 @@ app.use('/notes', notesRouter);
 
 // request handling
 app.get('/', (req, res) => {
-  res.status(200).send('Hello, world!');
+  res.status(200).json({
+    endpoints: [
+      '/notes',
+      'folders'
+    ]
+  });
 });
 
 // error handling
