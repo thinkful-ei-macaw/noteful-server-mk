@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
 const errorHandler = (error, req, res, next) => {
   let response;
   if (NODE_ENV === 'production') {
+    console.error(error.message);
     response = { error: { message: 'Server error' } };
   } else {
     response = { message: error.message, error };
